@@ -8,8 +8,13 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Politiker.Infrastructure;
+using Politiker.Modules;
 
 namespace Politiker
 {
@@ -23,9 +28,29 @@ namespace Politiker
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Angular path
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
+            //DbContext
+            services.AddDbContext<MainContext>();
+
+            //AutoMapper Configuration
+            AutoMapperConfiguration.Register(Politiker.Core.Emitter.MapperClasses())
+                .Initialize();
+
+            //Autofac
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            var container = builder.Build();
+            return new AutofacServiceProvider(container);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +65,20 @@ namespace Politiker
                 app.UseHsts();
             }
 
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 }
