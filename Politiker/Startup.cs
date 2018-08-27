@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Politiker.Infrastructure;
@@ -32,6 +33,10 @@ namespace Politiker
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+
+            //Connection string
+            var connString = Configuration["Data:ConnectionString"];
+
             //Angular path
             services.AddSpaStaticFiles(configuration =>
             {
@@ -39,7 +44,8 @@ namespace Politiker
             });
 
             //DbContext
-            services.AddDbContext<MainContext>();
+            services.AddDbContext<MainContext>(options =>
+            options.UseSqlServer(connString));
 
             //AutoMapper Configuration
             AutoMapperConfiguration.Register(Politiker.Core.Emitter.MapperClasses())
