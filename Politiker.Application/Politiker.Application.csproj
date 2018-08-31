@@ -8,4 +8,14 @@
     <PackageReference Include="Autofac" Version="4.8.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Command\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kernel\Kernel.csproj" />
+    <ProjectReference Include="..\Politiker.Core\Politiker.Core.csproj" />
+    <ProjectReference Include="..\Politiker.Infrastructure\Politiker.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

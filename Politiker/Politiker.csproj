@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kernel\Kernel.csproj" />
+    <ProjectReference Include="..\Politiker.Application\Politiker.Application.csproj" />
     <ProjectReference Include="..\Politiker.Core\Politiker.Core.csproj" />
     <ProjectReference Include="..\Politiker.Infrastructure\Politiker.Infrastructure.csproj" />
   </ItemGroup>

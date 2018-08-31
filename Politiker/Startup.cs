@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,13 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Kernel.CQRS;
 using Politiker.Infrastructure;
 using Politiker.Modules;
+using Politiker.Application.Modules;
 
 namespace Politiker
 {
@@ -35,7 +39,10 @@ namespace Politiker
 
 
             //Connection string
-            var connString = Configuration["Data:ConnectionString"];
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
 
             //Angular path
             services.AddSpaStaticFiles(configuration =>
@@ -45,16 +52,27 @@ namespace Politiker
 
             //DbContext
             services.AddDbContext<MainContext>(options =>
-            options.UseSqlServer(connString));
+                options.UseSqlServer(config.GetConnectionString("Main")));
 
             //AutoMapper Configuration
             AutoMapperConfiguration.Register(Politiker.Core.Emitter.MapperClasses())
-                .Initialize();
-
+               .Initialize();
+            
             //Autofac
             var builder = new ContainerBuilder();
+            //Politiker.Application Autofac Module
+            builder.RegisterModule(new ApplicationDiModule());
+            //CQRS Dispatcher
+            builder.RegisterType<Dispatcher>().AsSelf().InstancePerLifetimeScope();
+            builder.Register<IServiceProvider>(c =>
+            {
+                return services.BuildServiceProvider();
+            })
+            .SingleInstance();
             builder.Populate(services);
             var container = builder.Build();
+
+
             return new AutofacServiceProvider(container);
 
         }

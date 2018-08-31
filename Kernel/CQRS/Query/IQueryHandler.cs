@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kernel.CQRS.Query
 {
-    interface IQueryHandler<in TQuery, out TResult> where TQuery : IQuery<TResult>
+    public interface IQueryHandler<in TQuery, out TResult> where TQuery : IQuery<TResult> where TResult : IQueryResult
     {
         TResult Execute(TQuery query);
     }

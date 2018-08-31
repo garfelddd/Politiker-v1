@@ -13,6 +13,10 @@ namespace Politiker.Infrastructure.Map
         {
             builder.ToTable("Answer");
             builder.HasKey(x => x.Id);
+
+            builder.HasOne(x => x.Question)
+                .WithMany(x => x.Answers)
+                .HasForeignKey(x => x.QuestionId);
         }
     }
 }

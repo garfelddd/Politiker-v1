@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Kernel.CQRS.Query;
+using Kernel.CQRS;
+using Politiker.Core.Requests.Query.Regions;
+using Politiker.Core.Results.Query.Regions;
+using Politiker.Infrastructure;
 
 namespace Politiker.Controllers
 {
@@ -10,11 +15,22 @@ namespace Politiker.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        private readonly MainContext _context;
+        private readonly Dispatcher _dispatcher;
+
+        public ValuesController(Dispatcher dispatcher)
+        {
+
+            _dispatcher = dispatcher;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<RegionsResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var regionsResult = _dispatcher.Execute<GetRegionsByCountryRequest, RegionsResult>(new GetRegionsByCountryRequest { CountryName = "Polska"});
+            return regionsResult;
         }
 
         // GET api/values/5

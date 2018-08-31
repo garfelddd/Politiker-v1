@@ -18,6 +18,7 @@ namespace Politiker.Infrastructure.Map
                 .WithOne(x => x.Question)
                 .HasForeignKey(x => x.QuestionId);
 
+
                 
         }
     }
