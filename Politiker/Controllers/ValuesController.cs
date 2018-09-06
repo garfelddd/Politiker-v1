@@ -16,7 +16,6 @@ namespace Politiker.Controllers
     public class ValuesController : ControllerBase
     {
 
-        private readonly MainContext _context;
         private readonly Dispatcher _dispatcher;
 
         public ValuesController(Dispatcher dispatcher)

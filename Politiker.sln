@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Politiker.Core", "Politiker
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kernel", "Kernel\Kernel.csproj", "{4006E530-9A3F-45E9-A580-C790A682F5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politiker.Infrastructure", "Politiker.Infrastructure\Politiker.Infrastructure.csproj", "{2C6BCE01-9736-4093-AF63-68565E571DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Politiker.Infrastructure", "Politiker.Infrastructure\Politiker.Infrastructure.csproj", "{2C6BCE01-9736-4093-AF63-68565E571DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politiker.Application", "Politiker.Application\Politiker.Application.csproj", "{9062DC2A-9778-46E8-9748-9793A8B32420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Politiker.Application", "Politiker.Application\Politiker.Application.csproj", "{9062DC2A-9778-46E8-9748-9793A8B32420}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{0E1DD859-2596-4FDC-B1A3-46FFEFAF1A8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9062DC2A-9778-46E8-9748-9793A8B32420}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9062DC2A-9778-46E8-9748-9793A8B32420}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9062DC2A-9778-46E8-9748-9793A8B32420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E1DD859-2596-4FDC-B1A3-46FFEFAF1A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E1DD859-2596-4FDC-B1A3-46FFEFAF1A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E1DD859-2596-4FDC-B1A3-46FFEFAF1A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E1DD859-2596-4FDC-B1A3-46FFEFAF1A8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

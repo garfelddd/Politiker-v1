@@ -1,6 +1,49 @@
 <div class="row">
-  <div class="col text-center">
+  <div class="col">
+  <div class="text-center mb-5">
     <h2>Rozpoczales quiz</h2>
     <h5>Odpowiedz(jesli chcesz) wczesniej na pytania uzyte do statystyk</h5>
   </div>
-</div>
+
+  <div class="row  justify-content-center">
+    <div class="col-10 col-md-8">
+      <h3 class="h3-responsive text-left">Województwo</h3>
+      <app-select [options]="dataPoll.Regions" (selectedOption)="selectRegion($event)"></app-select>
+    </div>
+
+    <div class="col-10 col-md-8">
+      <h3 class="h3-responsive text-left">Wiek</h3>
+      <app-select [options]="dataPoll.Years" (selectedOption)="selectAge($event)"></app-select>
+    </div>
+
+    <div class="col-10 col-md-8">
+      <h3 class="h3-responsive text-left">Wykształcenie</h3>
+      <div class="row">
+         <div class="col-12">
+           <label mdbBtn color="primary" class="waves-light radio-button" [(ngModel)]="dataPoll.Education" mdbRadio="{{education}}" *ngFor="let education of dataPoll.Educations">
+            {{education}}
+              </label>
+         </div>
+      </div>
+    </div>
+
+    <div class="col-10 col-md-8">
+      <h3 class="h3-responsive text-left">Wiek</h3>
+      <div class="row">
+        <div class="col-12">
+        <label mdbBtn color="primary" class="waves-light radio-button"  [(ngModel)]="dataPoll.Gender" mdbRadio="{{gender}}" *ngFor="let gender of dataPoll.Genders">
+          {{gender}}
+        </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row justify-content-center mt-5">
+        <button mdbBtn type="button" color="mdb-color" class="waves-light rounded" mdbWavesEffect (click)="next()">Dalej</button>
+      </div>
+    </div>
+
+
+  </div>
+

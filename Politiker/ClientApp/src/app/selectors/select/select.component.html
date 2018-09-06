@@ -1,0 +1,15 @@
+<div class="select-wrapper mdb-select">
+  <span class="caret">▼</span>
+  <input (click)="manageOptionsView()" type="text" class="select-dropdown" value="{{ selectedOptionView ? selectedOptionView : 'Wybierz...' }}">
+  <ul [style.display]="clickedSelect ? 'block' : 'none'" class="dropdown-content select-dropdown">
+  <li class="disabled"><span class="filtrable">Choose your option</span></li>
+  <li *ngFor="let option of options" (click)="manageOptionsView(); changeValue(option);"><span class="filtrable">{{option}}</span></li>
+  </ul>
+
+  <select class="mdb-select initialized">
+    <option value="" disabled="" selected="">Choose your option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+</div>

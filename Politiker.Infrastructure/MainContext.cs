@@ -23,7 +23,8 @@ namespace Politiker.Infrastructure
         public MainContext(DbContextOptions options) : base(options)
         {
             
-            base.Database.EnsureCreated();
+            this.Database.EnsureCreated();
+            this.Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

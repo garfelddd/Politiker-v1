@@ -20,6 +20,9 @@ using Kernel.CQRS;
 using Politiker.Infrastructure;
 using Politiker.Modules;
 using Politiker.Application.Modules;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Politiker
 {
@@ -44,15 +47,44 @@ namespace Politiker
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+            //JWT section in appsettings.json
+            var jwtSettings = config.GetSection("JWT");
+
+            //JWT token parameters
+            var tokenParams = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"])),
+                ValidateIssuerSigningKey = true
+                //ValidIssuer = domain
+            };
+
+
+
+            //Auth
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options => {
+                options.TokenValidationParameters = tokenParams;
+            });
+
+            //Auth services builder
+            
+
             //Angular path
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
+            
             //DbContext
             services.AddDbContext<MainContext>(options =>
                 options.UseSqlServer(config.GetConnectionString("Main")));
+            
 
             //AutoMapper Configuration
             AutoMapperConfiguration.Register(Politiker.Core.Emitter.MapperClasses())
@@ -64,9 +96,13 @@ namespace Politiker
             builder.RegisterModule(new ApplicationDiModule());
             //CQRS Dispatcher
             builder.RegisterType<Dispatcher>().AsSelf().InstancePerLifetimeScope();
+            //Service Provider
+            var serviceProvider = services.BuildServiceProvider();
+            //Automatic migrations
+            serviceProvider.GetService<MainContext>().Database.Migrate();
             builder.Register<IServiceProvider>(c =>
             {
-                return services.BuildServiceProvider();
+                return serviceProvider;
             })
             .SingleInstance();
             builder.Populate(services);
