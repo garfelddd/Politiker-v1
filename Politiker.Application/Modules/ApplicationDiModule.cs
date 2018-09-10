@@ -18,16 +18,16 @@ namespace Politiker.Application.Modules
             {
                 foreach (var interfaceType in type.GetInterfaces())
                 {
-                    var generticType = interfaceType.GetGenericTypeDefinition();
-                    if (generticType == typeof(IQueryHandler<,>))
+                    var genericType = interfaceType.GetGenericTypeDefinition();
+                    if (genericType == typeof(IQueryHandler<,>))
                     {
                         var iType = typeof(IQueryHandler<,>).MakeGenericType(interfaceType.GetGenericArguments());
                         builder.RegisterType(type).As(iType).InstancePerLifetimeScope();
                         
                     }
-                    if(generticType == typeof(ICommandHandler<>))
+                    if(genericType == typeof(ICommandHandler<>))
                     {
-                        var iType = typeof(ICommandHandler<>).MakeGenericType(interfaceType.GetGenericArguments());
+                        var iType = typeof(ICommandHandler<>).MakeGenericType(interfaceType.GetGenericArguments()[0]);
                         builder.RegisterType(type).As(iType).InstancePerLifetimeScope();
                     }
                 }

@@ -6,11 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180909174516_First.cs" />
+    <Compile Remove="Migrations\20180909174516_First.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\app\selectors\select\index.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\admin\components\" />
     <Folder Include="ClientApp\src\app\models\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\images\test\" />
   </ItemGroup>
 
@@ -18,6 +26,8 @@
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="FluentValidation" Version="8.0.100" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.100" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />

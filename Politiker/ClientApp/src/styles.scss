@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+html, body{
+  height: 100%;
+  margin: 0;
+}
+.bottom-line{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.top-53{
+  top: 53px;
+}

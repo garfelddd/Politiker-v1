@@ -19,12 +19,11 @@ namespace Politiker.Infrastructure
         public DbSet<Party> Parties { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public MainContext(DbContextOptions options) : base(options)
         {
-            
-            this.Database.EnsureCreated();
-            this.Database.Migrate();
+            //this.Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

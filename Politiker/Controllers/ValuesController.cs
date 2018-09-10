@@ -28,8 +28,9 @@ namespace Politiker.Controllers
         [HttpGet]
         public ActionResult<RegionsResult> Get()
         {
-            var regionsResult = _dispatcher.Execute<GetRegionsByCountryRequest, RegionsResult>(new GetRegionsByCountryRequest { CountryName = "Polska"});
-            return regionsResult;
+            //var regionsResult = _dispatcher.Execute<GetRegionsByCountryRequest, RegionsResult>(new GetRegionsByCountryRequest { CountryName = "Polska"});
+            //return regionsResult;
+            return null;
         }
 
         // GET api/values/5

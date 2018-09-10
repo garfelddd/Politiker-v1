@@ -17,26 +17,31 @@ namespace Kernel.CQRS
             _provider = provider;
         }
 
-        public TResult Execute<TQuery, TResult>(TQuery query) where TQuery : IQuery<TResult> where TResult : IQueryResult
+        public TResult ExecuteQuery<TResult>(IQuery<TResult> query) where TResult : IQueryResult
         {
             if (query == null)
             {
                 throw new ArgumentNullException("query");
             }
-            var handler = _provider.GetService<IQueryHandler<TQuery, TResult>>();
+            Type[] genericTypes = { query.GetType(), typeof(TResult)};
+            var handlerType = typeof(IQueryHandler<,>).MakeGenericType(genericTypes);
+            System.Diagnostics.Debug.WriteLine("Dupa"+ handlerType.FullName);
+            //dynamic handler = _provider.GetService<IQueryHandler<TQuery, TResult>>();
+            dynamic handler = _provider.GetService(handlerType);
             if (handler == null)
             {
-                throw new HandlerNotFoundException(typeof(TQuery).FullName + " not found");
+                throw new HandlerNotFoundException(handlerType.Name + " not found");
             }
 
-            return handler.Execute(query);
+            return handler.Execute((dynamic)query);
 
         }
-        public void Execute<TCommand>(TCommand command) where TCommand : ICommand
+        public void ExecuteCommand<TCommand>(TCommand command) where TCommand : ICommand
         {
 
-
-            var handler = _provider.GetService<ICommandHandler<TCommand>>();
+            var genericType = command.GetType();
+            var handlerType = typeof(ICommandHandler<>).MakeGenericType(genericType);
+            dynamic handler = _provider.GetService(handlerType);
 
             if (handler == null)
             {

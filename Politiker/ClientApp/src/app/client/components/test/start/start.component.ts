@@ -14,10 +14,10 @@ export class StartComponent implements OnInit {
   dataPoll: Poll = new Poll();
   @Output() returnedData = new EventEmitter<Poll>();
 
-  constructor(private _regionService: RegionService) { }
+  constructor(private regionService: RegionService) { }
 
   ngOnInit() {
-    this._regionService.getRegionsByName("Polska")
+    this.regionService.getRegionsByName("Polska")
       .subscribe(data => this.dataPoll.Regions = data);
   }
   selectRegion(value: string) {

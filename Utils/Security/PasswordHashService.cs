@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace Utils.Security
 {
-    public class PasswordHash
+    public class PasswordHashService
     {
         private const int SaltByteSize = 24;
         private const int HashByteSize = 24;

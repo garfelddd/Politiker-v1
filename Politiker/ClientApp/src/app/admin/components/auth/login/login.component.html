@@ -1,0 +1,18 @@
+        <form [formGroup]="loginForm">
+          <p class="h3 text-left bottom-line mb-2">Sign in</p>
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            <input type="text" formControlName="Login" id="loginForm-login" class="form-control" mdbInputDirective>
+            <label for="defaultForm-login">Your login</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa fa-lock prefix grey-text"></i>
+            <input type="password" formControlName="Password" id="loginForm-pass" class="form-control" mdbInputDirective>
+            <label for="defaultForm-pass">Your password</label>
+          </div>
+
+          <div class="text-center">
+            <input type="submit" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Login">
+          </div>
+        </form>

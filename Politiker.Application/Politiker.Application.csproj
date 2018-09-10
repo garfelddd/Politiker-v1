@@ -9,13 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Kernel\Kernel.csproj" />
     <ProjectReference Include="..\Politiker.Core\Politiker.Core.csproj" />
     <ProjectReference Include="..\Politiker.Infrastructure\Politiker.Infrastructure.csproj" />
+    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>

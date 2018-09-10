@@ -23,6 +23,8 @@ using Politiker.Application.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Politiker.Core.Engine;
+using FluentValidation.AspNetCore;
 
 namespace Politiker
 {
@@ -38,7 +40,10 @@ namespace Politiker
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
 
 
             //Connection string
@@ -48,19 +53,27 @@ namespace Politiker
                 .Build();
 
             //JWT section in appsettings.json
-            var jwtSettings = config.GetSection("JWT");
+            var jwtConfig = config.GetSection("JWT");
 
+            var issuerSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["SecretKey"]));
+            var jwtOptions = new JwtOptions
+            {
+                SigningCredentials = new SigningCredentials(issuerSigninKey, SecurityAlgorithms.HmacSha256),
+                Expires = 45
+            };
+            //services.AddSingleton(jwtOptions);
             //JWT token parameters
             var tokenParams = new TokenValidationParameters
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["SecretKey"])),
                 ValidateIssuerSigningKey = true
                 //ValidIssuer = domain
             };
 
-
+            //IoC of params
+            //services.AddSingleton<>();
 
             //Auth
             services.AddAuthentication(x =>
@@ -83,7 +96,8 @@ namespace Politiker
             
             //DbContext
             services.AddDbContext<MainContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("Main")));
+                options.UseSqlServer(config.GetConnectionString("Main"), x => x.MigrationsAssembly("Politiker"))
+                );
             
 
             //AutoMapper Configuration
@@ -98,8 +112,12 @@ namespace Politiker
             builder.RegisterType<Dispatcher>().AsSelf().InstancePerLifetimeScope();
             //Service Provider
             var serviceProvider = services.BuildServiceProvider();
+            //JWT Options instance
+            builder.RegisterInstance(jwtOptions).ExternallyOwned();
             //Automatic migrations
-            serviceProvider.GetService<MainContext>().Database.Migrate();
+            var context = serviceProvider.GetService<MainContext>();
+            //context.Database.Migrate();
+            context.Database.EnsureCreated();
             builder.Register<IServiceProvider>(c =>
             {
                 return serviceProvider;
@@ -125,6 +143,7 @@ namespace Politiker
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
