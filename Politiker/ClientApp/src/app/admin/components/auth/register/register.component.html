@@ -1,28 +1,30 @@
-<form [formGroup]="registerForm">
+<form [formGroup]="registerForm" *ngIf="formStatus !== formStatusType.Succeed">
   <p class="h3 text-left bottom-line mb-2">Rejestracja</p>
   <div class="md-form pb-2">
     <i class="fa fa-user prefix grey-text"></i>
-    <input type="text" formControlName="Login" id="registerForm-login" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.login" mdbInputDirective>
+    <input type="text" formControlName="Login" id="registerForm-login" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.login" [validateSuccess]="false" mdbInputDirective>
     <label for="registerForm-login">Login</label>
   </div>
 
   <div class="md-form pb-2">
     <i class="fa fa-envelope prefix grey-text"></i>
-    <input type="email" formControlName="Email" id="registerForm-email" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.email" mdbInputDirective>
+    <input type="email" formControlName="Email" id="registerForm-email" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.email" [validateSuccess]="false" mdbInputDirective>
     <label for="registerForm-email">Email</label>
   </div>
 
   <div class="md-form pb-2">
     <i class="fa fa-lock prefix grey-text"></i>
-    <input type="password" formControlName="Password" id="registerForm-pass" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.password" mdbInputDirective>
+    <input type="password" formControlName="Password" id="registerForm-pass" class="form-control" [mdbValidate]="true" [errorMessage]="formErrors.password" [validateSuccess]="false" mdbInputDirective>
     <label for="registerForm-pass">Hasło</label>
   </div>
 
-  <div *ngIf="hasServerErrors">
-    <p *ngFor="let error of serverErrors.error" class="indigo-text">{{error}}</p>
-  </div>
+  <div class="card red lighten-1 text-center z-depth-2 mb-3" *ngIf="hasServerErrors">
+    <div class="card-body">
+      <p *ngFor="let error of serverErrors" class="white-text">{{error}}</p>
+    </div>
+    </div>
 
-  <div class="text-center">
-    <input type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
-  </div>
+    <div class="text-center">
+      <input [processingInput]="formStatus === formStatusType.Proccessing" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
+    </div>
 </form>

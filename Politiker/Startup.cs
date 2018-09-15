@@ -25,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Politiker.Core.Engine;
 using FluentValidation.AspNetCore;
+using Politiker.Filters;
 
 namespace Politiker
 {
@@ -40,9 +41,17 @@ namespace Politiker
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddMvc(opt => {
+                opt.Filters.Add(typeof(ValidatorActionFilter));
+            })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            //Turning off automatic validation in api controller
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
 
 

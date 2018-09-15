@@ -14,18 +14,16 @@ namespace Politiker.Validator
         public CreateUserRequestValidator(MainContext context)
         {
             _context = context;
-            RuleFor(x => x.Login).Must(LoginExists).WithMessage("The login already exists in our database");
-            RuleFor(x => x.Email).Must(EmailExists).WithMessage("The email already exists in our database");
+            RuleFor(x => x.Login).Must(LoginExists).WithMessage("Login juz istnieje w bazie");
+            RuleFor(x => x.Email).Must(EmailExists).WithMessage("Email juz istnieje w bazie");
         }
 
         public bool LoginExists(string login)
         {
-            System.Diagnostics.Debug.WriteLine(_context.Users.Any(x => x.Login == login)+ "login dziala");
             return !_context.Users.Any(x => x.Login == login);
         }
         public bool EmailExists(string email)
         {
-            System.Diagnostics.Debug.WriteLine(_context.Users.Any(x => x.Email == email) + "email dziala");
             return !_context.Users.Any(x => x.Email == email);
         }
     }

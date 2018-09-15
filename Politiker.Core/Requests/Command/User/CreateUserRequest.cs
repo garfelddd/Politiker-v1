@@ -28,6 +28,7 @@ namespace Politiker.Core.Requests.Command.User
         {
             Password = password;
         }
+        //
         public void SetRole(UserRole role)
         {
             UserRole = role;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Politiker.Core.Requests.Command.User;
 using Politiker.Extensions;
+using Politiker.Filters;
 
 namespace Politiker.Controllers
 {
@@ -21,20 +22,23 @@ namespace Politiker.Controllers
             _dispatcher = dispatcher;
         }
         // POST api/user/register
-        [HttpPost("registerr")]
+        [HttpPost("register")]
+        [ValidatorActionFilter]
         public IActionResult Register([FromBody] CreateUserRequest userRequest)
         {
-            System.Diagnostics.Debug.WriteLine("nie dziala ok");
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 var errorList = ModelState.SelectErrorMessages();
-                //return BadRequest("sss");
+                return BadRequest(errorList);
             }
-
+            */
             _dispatcher.ExecuteCommand(userRequest);
+            
 
             return Ok();
 
         }
+
+
     }
 }

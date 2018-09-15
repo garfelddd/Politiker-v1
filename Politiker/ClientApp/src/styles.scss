@@ -10,3 +10,7 @@ html, body{
 .top-53{
   top: 53px;
 }
+
+.card-body > p:last-child{
+  margin-bottom: 0;
+}

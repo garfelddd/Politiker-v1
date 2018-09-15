@@ -1,18 +1,31 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { UserRegistration } from '../models/user';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { BaseService } from './base.service';
+import { UserAuth } from '../models/user-auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private readonly apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) { }
+export class UserService extends BaseService{
+  apiUrl = this.apiUrl + "user/";
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-  register(user: User): Observable<any> {
-    return this.http.post<User>(this.apiUrl + 'user/register', user);
+  register(user: UserRegistration): Observable<any> {
+    return this.http.post<UserRegistration>(this.apiUrl + 'register', user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  login(credentials: UserAuth): Observable<any> {
+    return this.http.post<UserAuth>(this.apiUrl + 'login', credentials)
+      .pipe(
+
+      )
   }
 }

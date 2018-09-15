@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './register/register.component';
+import { SharedDirectivesModule } from '../../../directives/shared-directives.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
     ButtonsModule,
     CardsFreeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedDirectivesModule
   ],
   declarations: [LoginComponent, AuthComponent, RegisterComponent]
 })
