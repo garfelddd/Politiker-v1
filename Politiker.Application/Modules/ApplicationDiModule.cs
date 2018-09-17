@@ -6,6 +6,7 @@ using System.Reflection;
 using Autofac;
 using Kernel.CQRS.Query;
 using Kernel.CQRS.Command;
+using Kernel.Validation;
 
 namespace Politiker.Application.Modules
 {
@@ -13,7 +14,8 @@ namespace Politiker.Application.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var queryHandlersTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.GetInterfaces().Any(y => y.IsGenericType && ( y.GetGenericTypeDefinition() == (typeof(IQueryHandler<,>)) || y.GetGenericTypeDefinition() == typeof(ICommandHandler<>)) ) && x.IsClass);
+            var asm = Assembly.GetExecutingAssembly();
+            var queryHandlersTypes = asm.GetTypes().Where(x => x.GetInterfaces().Any(y => y.IsGenericType && ( y.GetGenericTypeDefinition() == (typeof(IQueryHandler<,>)) || y.GetGenericTypeDefinition() == typeof(ICommandHandler<>)) ) && x.IsClass);
             foreach(var type in queryHandlersTypes)
             {
                 foreach (var interfaceType in type.GetInterfaces())
@@ -32,6 +34,10 @@ namespace Politiker.Application.Modules
                     }
                 }
             }
+
+            //Register all validations handlers
+            builder.RegisterAssemblyTypes(asm)
+                .AsClosedTypesOf(typeof(IValidationHandler));
         }
     }
 }

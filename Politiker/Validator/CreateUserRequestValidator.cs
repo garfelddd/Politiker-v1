@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Politiker.Application.Validators;
 using Politiker.Core.Requests.Command.User;
 using Politiker.Infrastructure;
 using System;
@@ -10,21 +11,12 @@ namespace Politiker.Validator
 {
     public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
     {
-        private readonly MainContext _context;
-        public CreateUserRequestValidator(MainContext context)
+        private readonly UserValidationHandler _handler;
+        public CreateUserRequestValidator(UserValidationHandler handler)
         {
-            _context = context;
-            RuleFor(x => x.Login).Must(LoginExists).WithMessage("Login juz istnieje w bazie");
-            RuleFor(x => x.Email).Must(EmailExists).WithMessage("Email juz istnieje w bazie");
-        }
-
-        public bool LoginExists(string login)
-        {
-            return !_context.Users.Any(x => x.Login == login);
-        }
-        public bool EmailExists(string email)
-        {
-            return !_context.Users.Any(x => x.Email == email);
+            _handler = handler;
+            RuleFor(x => x.Login).Must(x => !_handler.LoginExists(x)).WithMessage("Login juz istnieje w bazie");
+            RuleFor(x => x.Email).Must(x => !_handler.EmailExists(x)).WithMessage("Email juz istnieje w bazie");
         }
     }
 }

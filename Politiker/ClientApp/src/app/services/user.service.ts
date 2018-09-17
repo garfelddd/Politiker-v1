@@ -23,9 +23,15 @@ export class UserService extends BaseService{
   }
 
   login(credentials: UserAuth): Observable<any> {
-    return this.http.post<UserAuth>(this.apiUrl + 'login', credentials)
+    return this.http.post<any>(this.apiUrl + 'login', credentials)
       .pipe(
+      map(user => {
+        if (user && user.Token) {
+          localStorage.setItem('jwtToken', user.Token);
+        }
 
+      }),
+      catchError(this.handleError)
       )
   }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Politiker.Core.Requests.Query.User
 {
-    public class GetAuthUserRequest : IQuery<UserIdResult>
+    public class GetAuthUserRequest : IQuery<BaseUserResult>
     {
         public string Login { get; set; }
         public string Password { get; set; }

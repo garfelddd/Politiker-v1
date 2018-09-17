@@ -63,10 +63,11 @@ namespace Politiker
 
             //JWT section in appsettings.json
             var jwtConfig = config.GetSection("JWT");
-
-            var issuerSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["SecretKey"]));
+            var jwtKey = jwtConfig["SecretKey"];
+            var issuerSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var jwtOptions = new JwtOptions
             {
+                Key = jwtKey,
                 SigningCredentials = new SigningCredentials(issuerSigninKey, SecurityAlgorithms.HmacSha256),
                 Expires = 45
             };

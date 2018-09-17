@@ -8,6 +8,7 @@ namespace Politiker.Core.Engine
 {
     public class JwtOptions
     {
+        public string Key { get; set; }
         public SigningCredentials SigningCredentials { get; set; }
         public int Expires { get; set; }
 
