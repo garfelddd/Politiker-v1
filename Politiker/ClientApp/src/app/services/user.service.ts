@@ -10,9 +10,14 @@ import { UserAuth } from '../models/user-auth';
   providedIn: 'root'
 })
 export class UserService extends BaseService{
+
   apiUrl = this.apiUrl + "user/";
+  private isLogged: boolean = false;
+
   constructor(private http: HttpClient) {
     super();
+    if (localStorage.getItem('jwtToken'))
+      this.isLogged = true;
   }
 
   register(user: UserRegistration): Observable<any> {
@@ -27,11 +32,21 @@ export class UserService extends BaseService{
       .pipe(
       map(user => {
         if (user && user.Token) {
-          localStorage.setItem('jwtToken', user.Token);
+          this.saveToken(user.Token);
+          this.isLogged = true;
+          return true;
         }
 
       }),
       catchError(this.handleError)
       )
+  }
+  logout() {
+    localStorage.removeItem('jwtToken');
+    this.isLogged = false;
+  }
+
+  private saveToken(token: string) {
+    localStorage.setItem('jwtToken', token);
   }
 }

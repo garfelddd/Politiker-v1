@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" *ngIf="formStatus !== formStatusType.Succeed">
+<form [formGroup]="registerForm">
   <p class="h3 text-left bottom-line mb-2">Rejestracja</p>
   <div class="md-form pb-2">
     <i class="fa fa-user prefix grey-text"></i>
@@ -25,6 +25,6 @@
     </div>
 
     <div class="text-center">
-      <input [processingInput]="formStatus === formStatusType.Proccessing" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
+      <input [processingInput]="formStatus" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
     </div>
 </form>

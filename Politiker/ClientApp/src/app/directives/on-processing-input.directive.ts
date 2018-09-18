@@ -6,14 +6,17 @@ import { FormStatus } from '../enums/form-status';
 })
 export class OnProcessingInputDirective implements OnChanges {
 
-  @Input('processingInput') conditional: boolean = false;
+  @Input('processingInput') formStatus: FormStatus;
   @HostBinding('disabled') disabled;
   formStatusType = FormStatus;
   constructor(private el: ElementRef, private renderer: Renderer) {
 
   }
   updateState() {
-    this.disabled = this.conditional;
+    if (this.formStatus === FormStatus.Proccessing)
+      this.disabled = true;
+    else
+      this.disabled = false;
   }
   
   ngOnChanges(changes: SimpleChanges) {

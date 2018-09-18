@@ -37,7 +37,9 @@ namespace Politiker.Application.Modules
 
             //Register all validations handlers
             builder.RegisterAssemblyTypes(asm)
-                .AsClosedTypesOf(typeof(IValidationHandler));
+               .Where(x => typeof(IValidationHandler).IsAssignableFrom(x))
+               .AsSelf()
+               .InstancePerLifetimeScope();
         }
     }
 }

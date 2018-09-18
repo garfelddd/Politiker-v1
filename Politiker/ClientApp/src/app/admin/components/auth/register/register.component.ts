@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../../services/user.service';
-import { UserRegistration } from '../../../../models/user';
-import { FormStatus } from '../../../../enums/form-status';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormStatus } from '../../../../enums/form-status';
+import { UserRegistration } from '../../../../models/user';
+import { UserService } from '../../../../services/user.service';
 
 
 @Component({
@@ -51,8 +51,18 @@ export class RegisterComponent implements OnInit {
 
     this.userService.register(this.user)
       .subscribe(
-      () => { this.formStatus = FormStatus.Succeed; this.hasServerErrors = false; this.router.navigateByUrl('/admin/auth/login', { queryParams: { login: this.user.Login, freshUser: true}})},
-      (err) => { this.serverErrors = err; this.hasServerErrors = true; this.formStatus = FormStatus.Ready }
+      () => {
+        this.formStatus = FormStatus.Succeed;
+        this.hasServerErrors = false;
+        this.router.navigateByUrl('/admin/auth/login', {
+          queryParams: { login: this.user.Login, freshUser: true }
+        })
+      },
+      (err) => {
+        this.serverErrors = err;
+        this.hasServerErrors = true;
+        this.formStatus = FormStatus.Ready
+      }
     )
     
   }

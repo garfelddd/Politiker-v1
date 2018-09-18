@@ -26,6 +26,6 @@
   </div>
 
   <div class="text-center">
-    <input type="submit" mdbBtn color="mdb-color" class="waves-light" value="Zaloguj">
+    <input [processingInput]="formStatus" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" value="Zaloguj">
   </div>
 </form>
