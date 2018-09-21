@@ -12,5 +12,6 @@ namespace Politiker.Core.Entity
         public Category Category { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+        public ICollection<QuestionTopicCorrelation> Topics { get; set; }
     }
 }

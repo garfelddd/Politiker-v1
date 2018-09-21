@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Politiker.Core.Enum
 {
-    public enum AnswerTopic
+    public enum Topic
     {
         Economy,
-        NationPolicy,
+        NationalPolicy,
         Progression,
         Freedom,
         Authority

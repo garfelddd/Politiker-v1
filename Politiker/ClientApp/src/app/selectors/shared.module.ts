@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectComponent } from './select/select.component';
+import { NavItemComponent } from './nav-item/nav-item.component';
+import { NavItemHeadComponent } from './nav-item/nav-item-head.component';
+import { NavItemBodyComponent } from './nav-item/nav-item-body.component';
 
 
 @NgModule({
@@ -8,10 +11,16 @@ import { SelectComponent } from './select/select.component';
     CommonModule,
   ],
   declarations: [
-    SelectComponent
+    SelectComponent,
+    NavItemComponent,
+    NavItemHeadComponent,
+    NavItemBodyComponent
   ],
   exports: [
-    SelectComponent
+    SelectComponent,
+    NavItemComponent,
+    NavItemHeadComponent,
+    NavItemBodyComponent
   ]
 })
 export class SharedModule { }

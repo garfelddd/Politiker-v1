@@ -26,7 +26,12 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "nunito-fontface": "^0.7.2",
     "rxjs": "^6.0.0",
+    "typeface-montserrat": "0.0.54",
+    "typeface-nunito": "0.0.54",
+    "typeface-prompt": "0.0.54",
+    "typeface-source-sans-pro": "0.0.54",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
