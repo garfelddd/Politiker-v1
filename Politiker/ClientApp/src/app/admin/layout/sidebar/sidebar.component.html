@@ -1,7 +1,7 @@
 <aside class="sidebar">
   <ul class="sidebar-menu">
     <li wavesEffect>
-      <a class="sidebar-menu-link active" href="#" role="button">
+      <a routerLink="/admin/dashboard" class="sidebar-menu-link active" href="#" role="button">
         <i class="fa fa-home"></i>
         <span>Glowny panel</span>
       </a>
@@ -26,10 +26,28 @@
       </nav-item>
     </li>
     <li wavesEffect>
-      <a class="sidebar-menu-link active" href="#" role="button">
-        <i class="fa fa-home"></i>
-        <span>Glowny panel</span>
-      </a>
+      <nav-item>
+        <nav-item-head>
+          <a class="sidebar-menu-link" role="button">
+            <i class="fa fa-question"></i>
+            <span>Kategorie</span>
+          </a>
+        </nav-item-head>
+        <nav-item-body>
+          <ul>
+            <li>
+              <a class="sidebar-menu-link" role="button">
+                <span>Dodaj Kategorie</span>
+              </a>
+            </li>
+            <li>
+              <a class="sidebar-menu-link" role="button">
+                <span>Wyswietl Kategorie</span>
+              </a>
+            </li>
+          </ul>
+        </nav-item-body>
+      </nav-item>
     </li>
   </ul>
 

@@ -1,0 +1,4 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a routerLink="/admin">Panel administracyjny</a></li>
+  <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs"><a routerLink="{{breadcrumb.Segment}}">{{ breadcrumb.Label }}</a></li>
+</ol>

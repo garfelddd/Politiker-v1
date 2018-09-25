@@ -6,6 +6,7 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md'
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SharedModule } from '../../selectors/shared.module';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from '../../selectors/shared.module';
     SharedModule
   ],
   exports: [LayoutComponent],
-  declarations: [LayoutComponent, HeaderComponent, SidebarComponent]
+  declarations: [LayoutComponent, HeaderComponent, SidebarComponent, BreadcrumbComponent]
 })
 export class LayoutModule { }

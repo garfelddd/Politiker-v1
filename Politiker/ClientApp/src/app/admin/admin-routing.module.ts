@@ -19,7 +19,8 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-          { path: 'dashboard', component: DashboardComponent }
+          { path: 'dashboard', component: DashboardComponent },
+          { path: 'category', loadChildren: './components/categories/categories.module#CategoriesModule', data: {title: 'Kategoria'}}
         ]
       }
     ]
