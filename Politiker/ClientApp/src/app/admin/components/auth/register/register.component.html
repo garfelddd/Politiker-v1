@@ -22,9 +22,9 @@
     <div class="card-body">
       <p *ngFor="let error of serverErrors" class="white-text">{{error}}</p>
     </div>
-    </div>
+  </div>
 
-    <div class="text-center">
-      <input [processingInput]="formStatus" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
-    </div>
+  <div class="text-center">
+    <input [processingInput]="formStatus" type="submit" (click)="onSubmit()" mdbBtn color="mdb-color" class="waves-light" mdbWavesEffect value="Zarejestruj się">
+  </div>
 </form>

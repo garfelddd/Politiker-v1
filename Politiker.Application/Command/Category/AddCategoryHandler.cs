@@ -20,6 +20,7 @@ namespace Politiker.Application.Command.Category
         public void Execute(AddCategoryRequest command)
         {
             _context.Add(Mapper.Map<Core.Entity.Category>(command));
+            _context.SaveChanges();
         }
     }
 }

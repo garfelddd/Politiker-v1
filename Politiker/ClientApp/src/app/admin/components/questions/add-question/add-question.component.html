@@ -1,3 +1,26 @@
-<p>
-  add-question works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <mdb-card>
+      <mdb-card-body>
+        <form >
+          <p class="h4 text-left py-4">Pytanie - tworzenie</p>
+
+          <div class="md-form">
+            <input type="text" id="Name" formControlName="Name" class="form-control" mdbInputDirective [mdbValidate]="true" [errorMessage]="formErrors.name" [validateSuccess]="false">
+            <label for="Name" class="font-weight-light">Nazwa</label>
+          </div>
+
+          <div class="card green lighten-1 text-center z-depth-2 mb-3" *ngIf="registered">
+            <div class="card-body">
+              <p *ngFor="let name of registered" class="white-text">Kategoria <strong>{{name}}</strong> została stworzona</p>
+            </div>
+          </div>
+
+          <div class="text-right py-4 mt-3">
+            <input type="submit"  mdbBtn color="success" class="waves-light" mdbWavesEffect value="Dodaj pytanie">
+          </div>
+        </form>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</div>

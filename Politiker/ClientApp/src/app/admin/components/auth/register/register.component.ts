@@ -14,13 +14,11 @@ import { UserService } from '../../../../services/user.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user: UserRegistration;
-  created: boolean = false;
   hasServerErrors: boolean = false;
-  submitted: boolean = false;
   serverErrors: string[];
   formStatusType = FormStatus;
   formStatus: FormStatus = FormStatus.Ready;
-  public formErrors: object = {
+  ormErrors: object = {
     login: "Wprowadz login",
     password: 'Hasło powinno mieć conajmniej 8 liter',
     email: 'Wprowadz poprawny adres email'
@@ -61,7 +59,7 @@ export class RegisterComponent implements OnInit {
       (err) => {
         this.serverErrors = err;
         this.hasServerErrors = true;
-        this.formStatus = FormStatus.Ready
+        this.formStatus = FormStatus.Ready;
       }
     )
     

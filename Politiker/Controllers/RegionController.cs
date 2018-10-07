@@ -24,7 +24,7 @@ namespace Politiker.Controllers
         }
 
         [HttpGet("getbyname/{name}")]
-        public ActionResult<List<string>> GetRegionsByName(string name)
+        public ActionResult<List<string>> GetRegionsByName([FromRoute] string name)
         {
             var regionsResult = _dispatcher.ExecuteQuery(new GetRegionsByCountryRequest { CountryName = name });
             return regionsResult.Select(x => x.Name).ToList();

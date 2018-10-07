@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ContentChild, ViewContainerRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalState } from '../../states/modal-state';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  providers: [ModalState]
 })
 export class LayoutComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute) { }
+  @ViewChild('modal', { read: ViewContainerRef }) modalSection: ViewContainerRef;
+  constructor(private modalState: ModalState) { }
 
   ngOnInit() {
-    console.log(this.route.children);
   }
 
+  ngAfterViewInit() {
+    this.modalState.vcr = this.modalSection;
+  }
 }

@@ -1,0 +1,16 @@
+<div mdbModal #modal="mdbModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">{{title}}</h4>
+      </div>
+      <div class="modal-body" #body>
+        Czy jestes pewny ze chcesz to zrobic?
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modal.hide(); onCancel()" mdbWavesEffect>{{cancelTitle}}</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="modal.hide(); onOk()">{{okTitle}}</button>
+      </div>
+    </div>
+  </div>
+</div>

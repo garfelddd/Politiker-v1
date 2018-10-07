@@ -26,6 +26,7 @@ using System.Text;
 using Politiker.Core.Engine;
 using FluentValidation.AspNetCore;
 using Politiker.Filters;
+using Newtonsoft.Json.Serialization;
 
 namespace Politiker
 {
@@ -41,7 +42,8 @@ namespace Politiker
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(opt => {
+            services.AddMvc(opt =>
+            {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

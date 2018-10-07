@@ -6,6 +6,7 @@ using Kernel.CQRS;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Politiker.Core.Requests.Command.Category;
+using Politiker.Core.Requests.Query.Category;
 using Politiker.Filters;
 
 namespace Politiker.Controllers
@@ -29,5 +30,37 @@ namespace Politiker.Controllers
 
             return Ok();
         }
+
+        [HttpGet("list")]
+        public IActionResult List()
+        {
+            var categories = _dispatcher.ExecuteQuery(new GetCategoriesRequest());
+            return Ok(categories);
+        }
+
+        [HttpGet("getbyid/{id}")]
+        public IActionResult GetById([FromRoute] int id)
+        {
+            var categoryRequest = new GetCategoryByIdRequest(id);
+            var categoryResult = _dispatcher.ExecuteQuery(categoryRequest);
+            return Ok(categoryResult);
+        }
+
+        [HttpDelete("removebyid/{id}")]
+        public IActionResult RemoveById([FromRoute] int id)
+        {
+            var categoryRequest = new RemoveCategoryByIdRequest(id);
+            _dispatcher.ExecuteCommand(categoryRequest);
+            return Ok();
+        }
+
+
+        [HttpPut("update")]
+        public IActionResult Update([FromBody]UpdateCategoryRequest category)
+        {
+            _dispatcher.ExecuteCommand(category);
+            return Ok();
+        }
+
     }
 }

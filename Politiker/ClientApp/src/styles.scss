@@ -18,3 +18,17 @@ html, body{
 ul {
   list-style-type: none;
 }
+
+.table-options{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.table-options > li {
+  display: inline-block;
+  color: #259dab;
+}
+.table-options > li:not(:first-child){
+  padding-left: 10px;
+}

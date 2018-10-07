@@ -18,12 +18,12 @@
 
           <div class="card green lighten-1 text-center z-depth-2 mb-3" *ngIf="registered">
             <div class="card-body">
-              <p *ngFor="let name of registered" class="white-text">Kategoria <strong>{{name}}</strong> została stworzona</p>
+              <p class="white-text">Kategoria <strong>{{registered}}</strong> została zaaktualizowana</p>
             </div>
           </div>
 
           <div class="text-right py-4 mt-3">
-            <input type="submit" (click)="onSubmit()" [processingInput]="formStatus" mdbBtn color="success" class="waves-light" mdbWavesEffect value="Dodaj kategorie">
+            <input type="submit" (click)="onSubmit()" [processingInput]="formStatus" mdbBtn color="success" class="waves-light" mdbWavesEffect value="Edytuj kategorie">
           </div>
         </form>
       </mdb-card-body>
