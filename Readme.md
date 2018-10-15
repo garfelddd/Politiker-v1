@@ -1,0 +1,1 @@
+I create polish version of isidewith, but that app won't be only for testing our political spectrum, i will add new features like list of parties(polish and international) and their issues, polls and whatever what my mind invent.
